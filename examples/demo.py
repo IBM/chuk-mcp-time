@@ -10,7 +10,7 @@ This script demonstrates:
 
 import asyncio
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from chuk_mcp_time.config import get_config
 from chuk_mcp_time.consensus import TimeConsensusEngine
@@ -100,7 +100,7 @@ async def demo_system_clock_comparison() -> None:
     current_system_time = time.time()
     system_delta_ms = (current_system_time - consensus.timestamp) * 1000
     current_system_time_str = datetime.fromtimestamp(
-        current_system_time, tz=timezone.utc
+        current_system_time, tz=UTC
     ).isoformat()
 
     # Calculate status
@@ -160,7 +160,7 @@ async def demo_timezone_conversion() -> None:
     ]
 
     utc_timestamp = consensus.timestamp
-    utc_dt = datetime.fromtimestamp(utc_timestamp, tz=timezone.utc)
+    utc_dt = datetime.fromtimestamp(utc_timestamp, tz=UTC)
 
     print("\n🌍 Time Around the World (from same NTP consensus):")
     for city, tz_name in timezones:
