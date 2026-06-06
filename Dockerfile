@@ -1,6 +1,6 @@
 # Multi-stage build for chuk-mcp-time
 # Stage 1: Builder
-FROM python:3.11-slim AS builder
+FROM python:3.14-slim AS builder
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -24,7 +24,7 @@ COPY src/ src/
 RUN uv pip install --system --no-cache -e .
 
 # Stage 2: Runtime
-FROM python:3.11-slim
+FROM python:3.14-slim
 
 # Install minimal runtime dependencies
 RUN apt-get update && apt-get install -y \
