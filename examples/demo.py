@@ -66,11 +66,7 @@ async def demo_basic_time_query() -> None:
     print("\n📡 Source Details:")
     for sample in consensus.source_samples:
         if sample.success:
-            print(
-                f"  ✅ {sample.server:30} "
-                f"RTT: {sample.rtt_ms:5.1f}ms  "
-                f"Stratum: {sample.stratum}"
-            )
+            print(f"  ✅ {sample.server:30} RTT: {sample.rtt_ms:5.1f}ms  Stratum: {sample.stratum}")
         else:
             print(f"  ❌ {sample.server:30} Error: {sample.error}")
 
@@ -99,9 +95,7 @@ async def demo_system_clock_comparison() -> None:
 
     current_system_time = time.time()
     system_delta_ms = (current_system_time - consensus.timestamp) * 1000
-    current_system_time_str = datetime.fromtimestamp(
-        current_system_time, tz=UTC
-    ).isoformat()
+    current_system_time_str = datetime.fromtimestamp(current_system_time, tz=UTC).isoformat()
 
     # Calculate status
     abs_delta = abs(system_delta_ms)
@@ -184,7 +178,7 @@ async def demo_accuracy_visualization() -> None:
 
     samples = []
     for i in range(5):
-        print(f"  Sample {i+1}/5...", end=" ", flush=True)
+        print(f"  Sample {i + 1}/5...", end=" ", flush=True)
         responses = await ntp_client.query_multiple_servers(config.ntp_servers[:4])
         consensus = consensus_engine.compute_consensus(responses)
         samples.append(consensus)
@@ -211,9 +205,7 @@ async def demo_accuracy_visualization() -> None:
     print_result("Avg Error Estimate", f"±{avg_error:.1f} ms")
     print_result("Samples", str(len(samples)))
 
-    print(
-        f"\n💡 Consensus is stable within ±{max_deviation:.1f}ms across {len(samples)} samples"
-    )
+    print(f"\n💡 Consensus is stable within ±{max_deviation:.1f}ms across {len(samples)} samples")
 
 
 async def main() -> None:
